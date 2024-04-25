@@ -8,3 +8,7 @@
 - [ ] search navigation (i.e in the searchbar 'play:hangman', 'upload:image', 'misc:quote of the day' etc)
 - [x] hangman game (frontend version, very terrible version)
 - [ ] table of contents
+- [ ] add a backend (fast api for now)
+- [ ] integrate backend with dictionary api (to use for hangman)
+- [ ] install axios
+- [ ] dockerize
