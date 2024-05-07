@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-const words = ['REACT', 'JAVASCRIPT', 'HTML', 'CSS']; // List of words for the game
+import axios from '../axiosConfig'
 
 const HangmanGame: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<string>('');
@@ -10,18 +9,30 @@ const HangmanGame: React.FC = () => {
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    const randomWord = words[Math.floor(Math.random() * words.length)];
-    setSelectedWord(randomWord);
-    setGuessedWord('_'.repeat(randomWord.length));
+    const fetchRandomWord = async () => {
+      try {
+        const response = await axios.get('/get_random_word/');
+        const randomWord = response.data.word;
+        setSelectedWord(randomWord);
+        setGuessedWord('_'.repeat(randomWord.length));
+      } catch (error) {
+        console.error('Error fetching random word:', error);
+      }
+    };
+  
+    fetchRandomWord();
   }, []);
+  
 
   const handleGuess = (letter: string) => {
+    const lowerCaseLetter = letter.toLowerCase();
+    
     let updatedGuessedWord = guessedWord;
-    if (selectedWord.includes(letter)) {
+    if (selectedWord.includes(lowerCaseLetter)) {
       updatedGuessedWord = guessedWord
         .split('')
         .map((char, index) =>
-          selectedWord[index] === letter ? letter : char
+          selectedWord[index] === lowerCaseLetter ? letter : char
         )
         .join('');
     } else {
@@ -30,7 +41,7 @@ const HangmanGame: React.FC = () => {
   
     setGuessedWord(updatedGuessedWord);
   
-    if (updatedGuessedWord === selectedWord) {
+    if (updatedGuessedWord.toLowerCase() === selectedWord.toLowerCase()) {
       setIsGameOver(true);
       setMessage('Congratulations! You won!');
     } else if (wrongGuesses.length >= 6) {
