@@ -9,6 +9,10 @@
 - [x] hangman game (frontend version, very terrible version)
 - [ ] table of contents
 - [x] add a backend (fast api for now)
-- [ ] integrate backend with dictionary api (to use for hangman)
-- [x] install axios
+- [x] integrate backend with dictionary api (to use for hangman)
+- [x] install, bulma
 - [ ] dockerize
+- [x] add some styling to hangman game
+- [x] add a button to generate new words
+- [ ] add some easter eggs around the website
+- [ ] add a random endpoint which takes you to random pages around the website
